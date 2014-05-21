@@ -59,9 +59,26 @@
     if (self != nil) {
         // Initialise properties
         _startDay = [start copy];
-        _startDate = [start date];
+       // _startDate = [start date];
         _endDay = [end copy];
-        _endDate = [end date];
+       // _endDate = [end date];
+        //when you use this method _startDate and _endDate always have nil. so I did this 
+        //I got too many problems with selected days. I place a new modification to DSLCalendarMonthView.m too same happend.
+         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyyMMdd"];
+        
+        NSString *stringFromDate = [NSString stringWithFormat:@"%i%2i%2i",start.year,start.month,start.day];
+        
+        stringFromDate = [stringFromDate stringByReplacingOccurrencesOfString:@" " withString:@"0"];
+        
+        _startDate = [formatter dateFromString:stringFromDate];
+        
+        stringFromDate = [NSString stringWithFormat:@"%i%2i%2i",end.year,end.month,end.day];
+        
+        stringFromDate = [stringFromDate stringByReplacingOccurrencesOfString:@" " withString:@"0"];
+        
+        _endDate = [formatter dateFromString:stringFromDate];
+
     }
 
     return self;
