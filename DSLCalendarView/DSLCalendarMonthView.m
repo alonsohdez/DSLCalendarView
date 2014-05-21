@@ -145,9 +145,17 @@
 - (void)updateDaySelectionStatesForRange:(DSLCalendarRange*)range {
     for (DSLCalendarDayView *dayView in self.dayViews) {
         if ([range containsDate:dayView.dayAsDate]) {
+         /*
             BOOL isStartOfRange = [range.startDay isEqual:dayView.day];
             BOOL isEndOfRange = [range.endDay isEqual:dayView.day];
-            
+           */
+            BOOL isStartOfRange = (range.startDay.day == dayView.day.day &&
+                                  range.startDay.month == dayView.day.month &&
+                                   range.startDay.year == dayView.day.year); //[range.startDay isEqual:dayView.day];
+            BOOL isEndOfRange = (range.endDay.day == dayView.day.day &&
+                                    range.endDay.month == dayView.day.month &&
+                                    range.endDay.year == dayView.day.year); //[range.endDay isEqual:dayView.day];
+
             if (isStartOfRange && isEndOfRange) {
                 dayView.selectionState = DSLCalendarDayViewWholeSelection;
             }
